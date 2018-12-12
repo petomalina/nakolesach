@@ -4,25 +4,43 @@
     <ul>
         <li v-for="ride in rides" :key="ride.id">{{ ride.text }}</li>
     </ul>
+    <form @submit.prevent="addTodo">
+      <input v-model="newRide" /> <button>Add</button>
+    </form>
   </div>
 </template>
 
 <script lang="ts">
+import firebase from 'firebase';
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { State, Action } from 'vuex-class';
+import { State, Action, Getter } from 'vuex-class';
 import { mapState } from 'vuex';
 
 @Component
 export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
+
+  private newRide: string = '';
   @State rides: any;
+  @Getter('rides') ridesGetter: any;
   @Action init: any;
+  @Action add: any;
 
   created () {
     this.init();
   }
   mounted () {
     console.log(this.rides);
+  }
+
+  addTodo() {
+    if (this.newRide) {
+      this.add({
+        text: this.newRide,
+        created: firebase.firestore.FieldValue.serverTimestamp(),
+      })
+      this.newRide = ''
+    }
   }
   updated () { }
   destroyed () { }
