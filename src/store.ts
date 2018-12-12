@@ -17,11 +17,12 @@ const db = firebase.firestore()
 db.settings({ timestampsInSnapshots: true })
 
 export default new Vuex.Store({
+  strict: true,
   state: {
     rides: [], // Will be bound as an array
   },
   mutations: {
-    ...firebaseMutations
+    ...firebaseMutations,
   },
   actions: {
     bindRef: firebaseAction(({ bindFirebaseRef }, { name, ref }) => {
