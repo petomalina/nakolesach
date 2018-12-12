@@ -25,6 +25,11 @@ export default new Vuex.Store({
     ...firebaseMutations,
   },
   actions: {
+    add: (action, ride) => {
+      db.collection('rides').add(ride);
+      console.log(action);
+      console.log(ride);
+    },
     bindRef: firebaseAction(({ bindFirebaseRef }, { name, ref }) => {
       bindFirebaseRef(name, ref)
     }),
