@@ -2,23 +2,30 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <ul>
-        <li v-for="ride in rideList()">
-          <input :value="ride.text" />
-        </li>
+        <li v-for:="ride in rides">{{ ride }}</li>
     </ul>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { State, Action } from 'vuex-class';
 import { mapState } from 'vuex';
 
 @Component
 export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
-  get rideList() {
-    return mapState(['rides']);
+  @State rides: any;
+  @Action init: any;
+
+  created () {
+    this.init();
   }
+  mounted () {
+    console.log(this.rides);
+  }
+  updated () { }
+  destroyed () { }
 }
 </script>
 
