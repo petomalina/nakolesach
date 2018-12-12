@@ -1,8 +1,26 @@
 import * as functions from 'firebase-functions';
+import {Request, Response} from "express";
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
+export const createRide = functions.https.onRequest((req: Request, res: Response) => {
+    res.send("Not implemented yet");
+});
+
+export const closeRide = functions.https.onRequest((req: Request, res: Response) => {
+    res.send("Not implemented yet");
+});
+
+export const createRequest = functions.https.onRequest((req: Request, res: Response) => {
+    res.send("Not implemented yet");
+});
+
+export const acceptRequest = functions.https.onRequest((req: Request, res: Response) => {
+    res.send("Not implemented yet");
+});
+
+export const declineRequest = functions.https.onRequest((req: Request, res: Response) => {
+    res.send("Not implemented yet");
+});
+
+export const cancelRequest = functions.https.onRequest((req: Request, res: Response) => {
+    res.send("Not implemented yet");
+});

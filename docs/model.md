@@ -24,6 +24,7 @@ where the plural refers to a list of IDs of the `Ride` model.
   "from": "Piestany",
   "to": "Brno",
   "slots": 4,
+  "availableSlots": 2,
   
   "price": "6",
   "currency": "EUR",
@@ -42,6 +43,7 @@ Where:
 - `rider` is an embedded JSON with first part as user `id`, while the second part encodes users name.
 - `from` and `to` are fully qualified addresses with at least first component (City)
 - `slots` is a number of free slots in the car (required, does not default)
+- `availableSlots` is a number of currently available slots.
 - `price` is the price for a single slot and `currency` is its currency (defaults to `EUR`)
 - `open` indicates if the ride is open for requests.
 - `autoAccept` will automatically accept any requests if set to `true`. All requests will need to be reviewed by the ride owner otherwise.
