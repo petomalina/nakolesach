@@ -2,7 +2,7 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <ul>
-        <li v-for:="ride in rides">{{ ride }}</li>
+        <li v-for="ride in rides" :key="ride.id">{{ ride.text }}</li>
     </ul>
   </div>
 </template>
