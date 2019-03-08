@@ -20,46 +20,53 @@
         </md-toolbar>
 
         <md-list>
-          <md-list-item>
-            <md-icon>move_to_inbox</md-icon>
-            <span class="md-list-item-text">Inbox</span>
-          </md-list-item>
+          <router-link to="/rides">
+            <md-list-item>
+              <md-icon>directions_car</md-icon>
+              <span class="md-list-item-text">Rides</span>
+            </md-list-item>
+          </router-link>
 
-          <md-list-item>
-            <md-icon>send</md-icon>
-            <span class="md-list-item-text">Sent Mail</span>
-          </md-list-item>
+          <router-link to="/requests">
+            <md-list-item>
+              <md-icon>transfer_within_a_station</md-icon>
+              <span class="md-list-item-text">Requests</span>
+            </md-list-item>
+          </router-link>
+  
+          <router-link to="/settings">
+            <md-list-item>
+              <md-icon>settings</md-icon>
+              <span class="md-list-item-text">Settings</span>
+            </md-list-item>
+          </router-link>
 
-          <md-list-item>
-            <md-icon>delete</md-icon>
-            <span class="md-list-item-text">Trash</span>
-          </md-list-item>
-
-          <md-list-item>
-            <md-icon>error</md-icon>
-            <span class="md-list-item-text">Spam</span>
-          </md-list-item>
         </md-list>
       </md-app-drawer>
 
       <md-app-content>
-        <md-button class="md-primary" @click="reload">New fact</md-button> Fact: {{ fact.value }}
+        <router-view/>
+        <!--<md-button class="md-primary" @click="reload">New fact</md-button>
+        Fact: {{ fact.value }}
+        <p v-if="pending.fact">loading posts...</p>
+        <p v-if="error.fact">loading failed</p>-->
       </md-app-content>
     </md-app>
   </div>
 </template>
 
 <script>
+  import { mapState, mapActions } from 'vuex'
   export default {
     name: 'PersistentMini',
     created() {
-      this.$store.dispatch('getFact');
+      this.getFact();
     },
-    computed: {
-      fact () {
-        return this.$store.state.fact;
-      }
-    },
+    computed: mapState({
+      fact: state => state.fact,
+      pending: state => state.pending,
+      error: state => state.error
+    }),
     data: () => ({
       menuVisible: false
     }),
@@ -68,8 +75,12 @@
         this.menuVisible = !this.menuVisible
       },
       reload () {
-        this.$store.dispatch('updateFact');
+        this.updateFact();
       },
+      ...mapActions([
+        "getFact",
+        "updateFact",
+      ])
     }
   }
 </script>

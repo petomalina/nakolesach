@@ -6,21 +6,26 @@ import Vapi from "vuex-rest-api"
 Vue.use(Vuex)
 
 const facts = new Vapi({
-  baseURL: "https://api.chucknorris.io",
+  baseURL: "https://europe-west1-nakolesach-sk.cloudfunctions.net",
     state: {
-      fact: "",
+      rides: [],
     }
   })
   // Step 3
+  // .get({
+  //   action: "getFact",
+  //   property: "fact",
+  //   path: "/jokes/random"
+  // })
+  // .get({
+  //   action: "updateFact",
+  //   property: "fact",
+  //   path: "/jokes/random"
+  // })
   .get({
-    action: "getFact",
-    property: "fact",
-    path: "/jokes/random"
-  })
-  .get({
-    action: "updateFact",
-    property: "fact",
-    path: "/jokes/random"
+    action: "ListRides",
+    property: "rides",
+    path: "/ListRides"
   })
   // Step 4
   .getStore()

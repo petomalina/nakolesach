@@ -1,0 +1,41 @@
+package functions
+
+import (
+	"encoding/json"
+	"log"
+	"nakolesach/models"
+	"net/http"
+	"strings"
+)
+
+const (
+	collectionRides = "rides"
+)
+
+func Ride(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		var d models.Ride
+		if err := json.NewDecoder(r.Body).Decode(&d); err != nil {
+			w.WriteHeader(400)
+			return
+		}
+
+		d.ID = "penis"
+
+		if err := json.NewEncoder(w).Encode(&d); err != nil {
+			w.WriteHeader(503)
+			log.Printf("json.Encode: %v", err)
+			return
+		}
+
+	} else if r.Method == "GET" {
+		id := strings.TrimPrefix(r.URL.Path, "/Ride/")
+		w.Write([]byte(id))
+	}
+
+	// if d.ID == "" {
+	// 	fmt.Fprint(w, "Hello, World!")
+	// 	return
+	// }
+	// fmt.Fprintf(w, "Hello, %s!", html.EscapeString(d.ID))
+}
