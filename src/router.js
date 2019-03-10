@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import RideDetail from './views/RideDetail.vue'
 
 Vue.use(Router)
 
@@ -24,6 +25,14 @@ export default new Router({
       path: '/rides',
       name: 'rides',
       component: () => import(/* webpackChunkName: "rides" */ './views/Rides.vue')
+    },{
+      path: '/rides/new',
+      name: 'new-ride',
+      component: RideDetail,
+    },{
+      path: '/ride/:id',
+      name: 'ride',
+      component: RideDetail,
     }
   ]
 })

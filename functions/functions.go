@@ -6,7 +6,6 @@ import (
 	"log"
 	"nakolesach/models"
 	"net/http"
-	"strings"
 
 	firestore "cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
@@ -72,11 +71,12 @@ func Ride(w http.ResponseWriter, r *http.Request) {
 		}
 
 	} else if r.Method == "GET" {
-		id := strings.TrimPrefix(r.URL.Path, "/Ride/")
+		id := r.URL.Path[1:]
 		doc, err := fsRides.Doc(id).Get(context.Background())
 		if err != nil {
 			log.Printf("fsRide.Doc().Get(): %v", err)
 			w.WriteHeader(503)
+			return
 		}
 
 		d := models.Ride{}
@@ -84,12 +84,16 @@ func Ride(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Printf("doc.DataTo(): %v", err)
 			w.WriteHeader(503)
+			return
 		}
+
+		d.ID = id
 
 		err = json.NewEncoder(w).Encode(&d)
 		if err != nil {
 			log.Printf("json.Encode(): %v", err)
 			w.WriteHeader(503)
+			return
 		}
 	} else {
 		w.WriteHeader(http.StatusMethodNotAllowed)
@@ -144,6 +148,8 @@ func ListRides(w http.ResponseWriter, r *http.Request) {
 			log.Printf("doc.DataTo: %v", err)
 			w.WriteHeader(http.StatusInternalServerError)
 		}
+
+		result[i].ID = doc.Ref.ID
 	}
 
 	err = json.NewEncoder(w).Encode(&result)

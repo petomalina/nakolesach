@@ -2,18 +2,22 @@
   <div class="rides">
     <md-card v-for="ride in rides" :key="ride.id">
       <md-card-header>
-        <div class="md-title">From {{ride.from}} to {{ride.to}}</div>
+        <div class="md-title">From {{ride.from}} to {{ride.to}} (#{{ride.id}})</div>
       </md-card-header>
 
       <md-card-content>
         Time of ride: {{ride.boardingTime | date}}
+        Ride slots: {{ride.availableSlots}} / {{ride.slots}}
       </md-card-content>
 
       <md-card-actions>
-        <md-button>Edit</md-button>
+        <md-button @click="$router.push(`/ride/${ride.id}`)">Edit</md-button>
         <md-button>Delete</md-button>
       </md-card-actions>
     </md-card>
+    <md-button class="md-fab md-fab-bottom-right" @click="newRide()">
+        <md-icon>add</md-icon>
+    </md-button>
   </div>
 </template>
 
@@ -33,7 +37,8 @@ export default {
         error: state => state.error
     }),
     data: () => ({
-        menuVisible: false
+        menuVisible: false,
+        showDialog: false
     }),
     filters: {
         date: function(value) {
@@ -41,6 +46,9 @@ export default {
         }
     },
     methods: {
+        newRide () {
+            this.$router.push({ name: 'new-ride' });
+        },
         toggleMenu () {
             this.menuVisible = !this.menuVisible
         },
@@ -58,5 +66,8 @@ export default {
   .md-card {
       margin-left: 0px;
       margin-right: 0px;
+  }
+  .md-dialog {
+    max-width: 768px;
   }
 </style>

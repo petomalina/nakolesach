@@ -9,6 +9,7 @@ const facts = new Vapi({
   baseURL: "https://europe-west1-nakolesach-sk.cloudfunctions.net",
     state: {
       rides: [],
+      ride: {},
     }
   })
   // Step 3
@@ -26,6 +27,11 @@ const facts = new Vapi({
     action: "ListRides",
     property: "rides",
     path: "/ListRides"
+  })
+  .get({
+    action: "GetRide",
+    property: "ride",
+    path: ({id}) => `/Ride/${id}`
   })
   // Step 4
   .getStore()
